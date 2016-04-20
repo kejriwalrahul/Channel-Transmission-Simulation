@@ -1,0 +1,32 @@
+Due Date: April/30/2016.
+Evaluation: May/04/2016
+
+Assignment 2
+============
+
+Concepts:
+
+o Information theory
+o Source Coding
+o Channel coding
+
+Take arbitrarily LARGE text data (atleast 64 KB). 
+
+a) Find the list of unique symbols and their probability
+of occurence. Compute the entropy.
+
+b) Source code the data using Huffmann Coding/Shannon Fano Code  - (use a binary tree to compute the Huffman code).  Generate a codebook from the 
+   Huffman code.
+
+c) Divide the data into fixed length packets.  Channel encode the packet.
+
+d) Assume that the bit error rate is p. Generate bit-errors appropriately
+in each packet.
+
+e) Send across the channel using the UDP-client server programs provided.
+
+f) Recover the text from the received data.  If the data is in error (check
+whether the CRC computed matches with what is transmitted), request
+for a retransmission of the packet.
+
+Minimum expected:  Source code (any algorithm), generate bit errors, packetise, transmit, decode -- will be given 50% of the marks.
