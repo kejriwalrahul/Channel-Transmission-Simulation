@@ -77,7 +77,7 @@ void genCodeBookAux(class treeNode *node, char *curr, ofstream *file){
 		else
 			*file << node->getCh() << "\t\t\t"<< "NA" << "\t\t\t" << curr << "\n";
 
-		codebook.emplace((char)node->getCh(),curr)
+		codebook.emplace((char)node->getCh(),curr);
 	}
 	else{
 		int len = strlen(curr); 

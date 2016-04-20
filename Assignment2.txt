@@ -18,7 +18,7 @@ of occurence. Compute the entropy.
 b) Source code the data using Huffmann Coding/Shannon Fano Code  - (use a binary tree to compute the Huffman code). Generate a codebook from the 
    Huffman code.
 
-c) Divide the data into fixed length packets.  Channel encode the packet.
+c) Divide the data into fixed length packets. Channel encode the packet.
 
 d) Assume that the bit error rate is p. Generate bit-errors appropriately
 in each packet.
