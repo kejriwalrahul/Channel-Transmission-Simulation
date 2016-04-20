@@ -140,6 +140,23 @@ void convert_to_huffman(char* inp){
 		n++;
 	}
 
+	// add redundancy bits
+	vector<bool> temp;
+	n = out.size();
+	char src[6], *res;
+	for(i=0; i < n; i+=5){
+		src[5] = '\0';
+		for(j=0; j < 5; j++){
+			temp.push_back(out[i+j]);
+			src[j] = (out[i+j] == true)?'1':'0';
+		}
+		res = computeCRC(src,"1011");
+		temp.push_back(((res[0]=='1')?true:false));
+		temp.push_back(((res[1]=='1')?true:false));
+		temp.push_back(((res[2]=='1')?true:false));
+	}
+	out = temp;
+
 	ofstream file_out("out", ios::out|ios::trunc|ios::binary);
 	// write encoded stream to file
 	for(i = 0; i < out.size(); i = i + 8){
