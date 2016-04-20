@@ -11,9 +11,7 @@
 using namespace std;
 double entropy = 0.0;
 
-//To implement ----------------------------------------------------------
 unordered_map<char, char*> codebook;
-//To implement ----------------------------------------------------------
 
 class treeNode* genCodeTree(char *str){
 	ifstream file(str, ios::in);
@@ -79,9 +77,7 @@ void genCodeBookAux(class treeNode *node, char *curr, ofstream *file){
 		else
 			*file << node->getCh() << "\t\t\t"<< "NA" << "\t\t\t" << curr << "\n";
 
-		// ADD to map ------------------------------------------------------
-		
-		// ADD to map ------------------------------------------------------
+		codebook.emplace((char)node->getCh(),curr)
 	}
 	else{
 		int len = strlen(curr); 
