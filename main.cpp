@@ -102,13 +102,20 @@ void genCodeBook(class treeNode *node){
 }
 
 void appendeof(char *str){
-	ofstream file(str, ios::app);
+	ifstream in(str, ios::in);
+	ofstream file("temp", ios::out|ios::trunc);
+	
+	char ch;
+	while(in >> noskipws >> ch){
+		file << ch;
+	}
 	file << '`';
 	file.close();
+	in.close();
 }
 
 void convert_to_huffman(char* inp){
-	ofstream file_out("out.txt", ios::binary|ios::out);
+	ofstream file_out("out", ios::out|ios::trunc|ios::binary);
 	ifstream file_inp(inp, ios::in);
 
 	vector<bool> out;
@@ -116,7 +123,6 @@ void convert_to_huffman(char* inp){
 	int i,j,k;
 	
 	while(file_inp >> noskipws >> c){
-		printf("%s\n",codebook['a']);
 		for(i = 0 ; i < strlen(codebook[c]) ; i++){
 			if(codebook[c][i] == '1')
 				out.push_back(true);
@@ -138,7 +144,13 @@ void convert_to_huffman(char* inp){
  			k = k + out[i+j]*pow(2,7 - j);
 		}
 		c = k;
-		file_out << c;
+		// if(c == ' ')
+		// 	printf("Space %d\n",i/8);
+		cout<<c;
+		// file_out << c;
+		char str[1];
+		str[0] = c; 
+		file_out.write(str,sizeof(str));
 	}
 	file_out.close();
 	file_inp.close();
@@ -146,7 +158,10 @@ void convert_to_huffman(char* inp){
 
 int main(int argc, char *argv[]){
 	appendeof(argv[1]);
-	class treeNode *b = genCodeTree(argv[1]);
+
+	char str[] = "temp";
+
+	class treeNode *b = genCodeTree(str);
 	genCodeBook(b);
-	convert_to_huffman(argv[1]);
+	convert_to_huffman(str);
 }
