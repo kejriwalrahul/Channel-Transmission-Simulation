@@ -17,7 +17,7 @@ vector<bool> out;
 
 class treeNode* genCodeTree(char *str){
 	ifstream file(str, ios::in);
-	ofstream op("symbollist", ios::out|ios::trunc);
+	ofstream op("./output/symbollist", ios::out|ios::trunc);
 	char ch;
 	class treeNode *freq[size];
 	int total = 0;
@@ -94,7 +94,7 @@ void genCodeBookAux(class treeNode *node, char *curr, ofstream *file){
 }
 
 void genCodeBook(class treeNode *node){
-	ofstream file("codebook", ios::out|ios::trunc);
+	ofstream file("./output/codebook", ios::out|ios::trunc);
 	char curr[size] = "";
 	
 	file << "NP stands for not printable char\n\n";
@@ -104,9 +104,9 @@ void genCodeBook(class treeNode *node){
 	file.close();
 }
 
-void appendeof(char *str){
+void appendeof(char *str, char *str2){
 	ifstream in(str, ios::in);
-	ofstream file("temp", ios::out|ios::trunc);
+	ofstream file(str2, ios::out|ios::trunc);
 	
 	char ch;
 	while(in >> noskipws >> ch){
@@ -133,9 +133,8 @@ void convert_to_huffman(char* inp){
 	}
 	file_inp.close();
 
-
 	int n = out.size();
-	while(n % 8 != 0){
+	while(n % 5 != 0){
 		out.push_back(false);
 		n++;
 	}
@@ -157,7 +156,7 @@ void convert_to_huffman(char* inp){
 	}
 	out = temp;
 
-	ofstream file_out("out", ios::out|ios::trunc|ios::binary);
+	ofstream file_out("./output/out", ios::out|ios::trunc|ios::binary);
 	// write encoded stream to file
 	for(i = 0; i < out.size(); i = i + 8){
 		
@@ -174,10 +173,9 @@ void convert_to_huffman(char* inp){
 }
 
 int main(int argc, char *argv[]){
-	appendeof(argv[1]);
+	char str[] = "./output/temp";
 
-	char str[] = "temp";
-
+	appendeof(argv[1], str);
 	class treeNode *b = genCodeTree(str);
 	genCodeBook(b);
 	convert_to_huffman(str);

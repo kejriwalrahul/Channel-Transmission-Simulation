@@ -1,6 +1,6 @@
 all:
-	g++ -g main.cpp -o main.o -std=c++11
-	./main.o test
+	g++ -g ./code/main.cpp -o ./bin/main.o -std=c++11
+	./bin/main.o ./input/test
 
 d:
-	gdb -q main.o
+	gdb -q ./bin/main.o
