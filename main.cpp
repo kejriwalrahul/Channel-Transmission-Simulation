@@ -3,15 +3,14 @@
 #include <stdio.h>
 #include <math.h>
 #include <iomanip>
-#include <unordered_map>
 #include <string.h>
+#include <vector>
 
 #include "btree.cpp"
-
 using namespace std;
-double entropy = 0.0;
 
-unordered_map<char, char*> codebook;
+double entropy = 0.0;
+char *codebook[size];
 
 class treeNode* genCodeTree(char *str){
 	ifstream file(str, ios::in);
@@ -77,7 +76,8 @@ void genCodeBookAux(class treeNode *node, char *curr, ofstream *file){
 		else
 			*file << node->getCh() << "\t\t\t"<< "NA" << "\t\t\t" << curr << "\n";
 
-		codebook.emplace((char)node->getCh(),curr);
+		codebook[node->getCh()] = new char[strlen(curr)+1];
+		strcpy(codebook[node->getCh()], curr);
 	}
 	else{
 		int len = strlen(curr); 
@@ -101,7 +101,52 @@ void genCodeBook(class treeNode *node){
 	file.close();
 }
 
+void appendeof(char *str){
+	ofstream file(str, ios::app);
+	file << '`';
+	file.close();
+}
+
+void convert_to_huffman(char* inp){
+	ofstream file_out("out.txt", ios::binary|ios::out);
+	ifstream file_inp(inp, ios::in);
+
+	vector<bool> out;
+	char c;
+	int i,j,k;
+	
+	while(file_inp >> noskipws >> c){
+		printf("%s\n",codebook['a']);
+		for(i = 0 ; i < strlen(codebook[c]) ; i++){
+			if(codebook[c][i] == '1')
+				out.push_back(true);
+			else
+				out.push_back(false);
+		}
+	}
+
+	int n = out.size();
+
+	while(n % 8 != 0){
+		out.push_back(false);
+		n++;
+	}
+
+	for(i = 0; i < out.size(); i = i + 8){
+		k = 0;
+		for(j = 0; j < 8;j++){
+ 			k = k + out[i+j]*pow(2,7 - j);
+		}
+		c = k;
+		file_out << c;
+	}
+	file_out.close();
+	file_inp.close();
+}
+
 int main(int argc, char *argv[]){
+	appendeof(argv[1]);
 	class treeNode *b = genCodeTree(argv[1]);
 	genCodeBook(b);
+	convert_to_huffman(argv[1]);
 }
