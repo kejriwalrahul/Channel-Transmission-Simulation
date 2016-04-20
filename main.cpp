@@ -7,10 +7,13 @@
 #include <vector>
 
 #include "btree.cpp"
+#include "crc.cpp"
+
 using namespace std;
 
 double entropy = 0.0;
 char *codebook[size];
+vector<bool> out;
 
 class treeNode* genCodeTree(char *str){
 	ifstream file(str, ios::in);
@@ -115,10 +118,8 @@ void appendeof(char *str){
 }
 
 void convert_to_huffman(char* inp){
-	ofstream file_out("out", ios::out|ios::trunc|ios::binary);
 	ifstream file_inp(inp, ios::in);
 
-	vector<bool> out;
 	char c;
 	int i,j,k;
 	
@@ -130,30 +131,29 @@ void convert_to_huffman(char* inp){
 				out.push_back(false);
 		}
 	}
+	file_inp.close();
+
 
 	int n = out.size();
-
 	while(n % 8 != 0){
 		out.push_back(false);
 		n++;
 	}
 
+	ofstream file_out("out", ios::out|ios::trunc|ios::binary);
+	// write encoded stream to file
 	for(i = 0; i < out.size(); i = i + 8){
+		
 		k = 0;
 		for(j = 0; j < 8;j++){
  			k = k + out[i+j]*pow(2,7 - j);
 		}
-		c = k;
-		// if(c == ' ')
-		// 	printf("Space %d\n",i/8);
-		cout<<c;
-		// file_out << c;
+
 		char str[1];
-		str[0] = c; 
+		str[0] = k; 
 		file_out.write(str,sizeof(str));
 	}
 	file_out.close();
-	file_inp.close();
 }
 
 int main(int argc, char *argv[]){
