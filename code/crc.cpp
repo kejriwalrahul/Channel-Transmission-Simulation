@@ -50,9 +50,13 @@ char* computeCRC(char* src, char* genpoly){
 	return ans;
 }
 
-/*
-int main(){
-	cout << computeCRC("1101011011", "10011");
+
+/*int main(){
+	char temp[100]="1101011011";
+	char *res = computeCRC(temp, "10011"); 
+	cout << res <<endl;
+	cout << res[0] << res[3] <<endl;
+	cout << computeCRC(strcat(temp,res) , "10011");
 	return 0;
 }
 */
