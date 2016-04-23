@@ -142,6 +142,11 @@ void convert_to_huffman(char* inp){
 		n++;
 	}
 
+	FILE *fp = fopen("./output/tempbef","w");
+	for(i=0; i < out.size();i++)
+		fprintf(fp,"%d",(out[i]==true)?1:0);
+	fclose(fp);
+
 	// add redundancy bits
 	vector<bool> temp;
 	n = out.size();

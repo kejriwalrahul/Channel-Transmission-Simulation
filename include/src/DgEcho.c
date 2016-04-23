@@ -115,10 +115,19 @@ void DgEcho(int sockFd, struct sockaddr *pcliAddr, socklen_t  maxCliLen)
         res = workwith(0);
 
       if (res == 0){
-
+        char t[2];
+        t[0] = '0';
+        t[1] = '\0';
+        if (sendto (sockFd, t, strlen(t), 0, pcliAddr, cliLen) != strlen(t)) {
+           printf("dg_echo : sendto  error\n");
+           exit(-1);
+        }
       }
       else{
-      	if (sendto (sockFd, mesg, n, 0, pcliAddr, cliLen) != n) {
+      	char t[2];
+        t[0] = '1';
+        t[1] = '\0';
+        if (sendto (sockFd, t, strlen(t), 0, pcliAddr, cliLen) != strlen(t)) {
 		   printf("dg_echo : sendto  error\n");
            exit(-1);
 		}

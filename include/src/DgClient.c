@@ -41,8 +41,9 @@
    {
      int n;
      char recvMsg[MAXLINE];
-       {
+     
 	 n = strlen(sendMsg);
+     do{
 	 if(sendto(sockFd, sendMsg , n, 0 , servAddr , servlen) != n)
 	   printf("DgClient : sendto error on socket \n");
 
@@ -55,8 +56,11 @@
 	 n = recvfrom(sockFd, recvMsg, MAXLINE, 0, 
 	     (struct sockaddr *) 0 , ( socklen_t *) 0);
 
-	 if(n < 0) {
+	 /*if(recvMsg[0] == '0'){
+	 	printf("transmission error\n");
+	 }*/
 
+	 if(n < 0) {
 	    printf("DgClient : recvfrom error \n");
             exit (-1) ;
 	 }
@@ -64,8 +68,8 @@
 	 recvMsg[n] = '\0';
 	 // printf("Received Message %s\n", recvMsg);
 
-       }
-   }	/*  End of DgClient		End of DgClient   */
+   }while(recvMsg[0] == '0');
+}	/*  End of DgClient		End of DgClient   */
 
 /*-------------------------------------------------------------------------
  * $Log: DgClient.c,v $
