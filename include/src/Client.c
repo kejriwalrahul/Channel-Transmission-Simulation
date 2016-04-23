@@ -40,27 +40,28 @@
  *    See:	
  *    Bugs:	
  -------------------------------------------------------------------------*/
+
 void Usage () {
   printf ("Client ServerIPAddr ServerPort ClientIPAddress ClientPort\n");
 }
 
-
 /*-------------------------------------------------------------------------
  *  main -- Main Program for the Client - sends 10 lines of text to server
- *    Args:	Takes as arguments ServerIP, ServerPort, ClientIP, ClientPort
- *    Returns:	Nothing
- *    Throws:	
- *    See:	Unix Network Programming: Richard Stevens - Vol I
- *    Bugs:	
+ *    Args: Takes as arguments ServerIP, ServerPort, ClientIP, ClientPort
+ *    Returns:  Nothing
+ *    Throws: 
+ *    See:  Unix Network Programming: Richard Stevens - Vol I
+ *    Bugs: 
  -------------------------------------------------------------------------*/
 int  main (int argc, char **argv)
 {
+    
     int                   sockFd;
     int                   serverPortNumber, clientPortNumber;
     struct sockaddr_in    clientAddr,serverAddr;
-    char                  *sendMsg = "Testing UDP Protocol\n";
+    // char                  *sendMsg = "Testing UDP Protocol\n";
 
-    int                   i;
+    // int                   i;
     char                  tempString[256];
 
     if (argc != 5) {
@@ -92,7 +93,7 @@ int  main (int argc, char **argv)
      * Bind any local address for us.
      */
     
-      printf ("Socket bound\n");    
+    printf ("Socket bound\n");    
 
     
     bzero(( char *) &clientAddr , sizeof (clientAddr));
@@ -105,13 +106,22 @@ int  main (int argc, char **argv)
     exit(-1);
     }
    
-    for (i = 0; i < 10; i++) {
-      tempString[0] = (char) (i+48);
-      tempString[1] = ' ';
-      tempString[2] = '\0';
-      strcat(tempString, sendMsg);
-      printf ("Message Sent = %s\n", sendMsg);
-     DgClient(tempString, sockFd, (struct sockaddr *) &serverAddr, sizeof(serverAddr));
+    FILE *fp = fopen("../output/out", "r");
+    FILE *fout = fopen("../output/tempout", "w");
+    int mn;
+    while ((mn = fgetc(fp))!= EOF) {
+      if(mn != 0){
+        tempString[0] = '1';
+        tempString[1] = mn;
+        tempString[2] = '\0';
+      }
+      else{
+        tempString[0] = '2';
+        tempString[1] = '1';
+        tempString[2] = '\0';
+      }
+      fprintf(fout,"%d\n", mn);
+      DgClient(tempString, sockFd, (struct sockaddr *) &serverAddr, sizeof(serverAddr));
     }
     close(sockFd);
     exit(0);

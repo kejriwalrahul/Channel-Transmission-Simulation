@@ -24,7 +24,7 @@ char* computeCRC(char* src, char* genpoly){
 		strcat(temp, "0");
 	}
 
-	char *ans = malloc(n);
+	char *ans = malloc(n+1);
 	// char *ans = new char[n];
 
 	i = 0;
@@ -46,6 +46,7 @@ char* computeCRC(char* src, char* genpoly){
 		ans[j] = temp[i];
 	}
 
+	ans[j] = '\0';
 	return ans;
 }
 

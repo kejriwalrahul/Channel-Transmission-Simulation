@@ -46,7 +46,7 @@
 	 if(sendto(sockFd, sendMsg , n, 0 , servAddr , servlen) != n)
 	   printf("DgClient : sendto error on socket \n");
 
-	 printf ("Message Sent = %s\n", sendMsg);
+	 // printf ("Message Sent = %s\n", sendMsg);
          fflush(stdout);
 	 /*
 	  * Now read a message from the socket and write it to 
@@ -62,7 +62,7 @@
 	 }
 
 	 recvMsg[n] = '\0';
-	 printf("Received Message %s\n", recvMsg);
+	 // printf("Received Message %s\n", recvMsg);
 
        }
    }	/*  End of DgClient		End of DgClient   */

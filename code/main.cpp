@@ -72,13 +72,14 @@ class treeNode* genCodeTree(char *str){
 	return a;	
 }
 
-void genCodeBookAux(class treeNode *node, char *curr, ofstream *file){
+void genCodeBookAux(class treeNode *node, char *curr, ofstream *file,ofstream *file2 ){
 	if(node->getLeft() == NULL && node->getRight() == NULL){
 		if(isprint(node->getCh()))
 			*file << node->getCh() << "\t\t\t"<< (char)node->getCh() << "\t\t\t" << curr << "\n";
 		else
 			*file << node->getCh() << "\t\t\t"<< "NA" << "\t\t\t" << curr << "\n";
 
+		*file2 << node->getCh() << "\n" << curr << "\n";
 		codebook[node->getCh()] = new char[strlen(curr)+1];
 		strcpy(codebook[node->getCh()], curr);
 	}
@@ -86,22 +87,24 @@ void genCodeBookAux(class treeNode *node, char *curr, ofstream *file){
 		int len = strlen(curr); 
 		curr[len] = '0';
 		curr[len+1] = '\0';
-		genCodeBookAux(node->getLeft(), curr, file);
+		genCodeBookAux(node->getLeft(), curr, file,file2);
 		curr[len] = '1';
-		genCodeBookAux(node->getRight(), curr, file);
+		genCodeBookAux(node->getRight(), curr, file,file2);
 		curr[len] = '\0';
 	}
 }
 
 void genCodeBook(class treeNode *node){
 	ofstream file("./output/codebook", ios::out|ios::trunc);
+	ofstream file2("./output/mrcodebook", ios::out|ios::trunc);
 	char curr[size] = "";
 	
 	file << "NP stands for not printable char\n\n";
 	file << "ASCII" << "\t\t" << "Symbol" << "\t\t" << "Huffman Code" <<"\n";
 
-	genCodeBookAux(node, curr, &file);
+	genCodeBookAux(node, curr, &file, &file2);
 	file.close();
+	file2.close();
 }
 
 void appendeof(char *str, char *str2){
