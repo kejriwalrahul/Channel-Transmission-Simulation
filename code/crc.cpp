@@ -11,6 +11,10 @@ char xorc(char a, char b){
 }
 
 // First bit of generating polynomial, genpoly must be 1.
+// Compute CRC takes two strings as input: the first one takes the bitstream 
+// whose CRC is to be computed and the other is the generating polynomial bitstring
+// of length n. Return value is a string of len n-1 containing the CRC of the first argument,src.
+
 char* computeCRC(char* src, char* genpoly){
 	int n = strlen(genpoly) - 1;
 	
