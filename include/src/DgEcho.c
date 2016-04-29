@@ -12,10 +12,10 @@
  *  Last modified:  Sat 17-Mar-2007 14:12:40 by hema
  *  $Id: DgEcho.c,v 1.1 2007/03/26 04:26:09 hema Exp hema $
  *
- *  Bugs:	
+ *  Bugs: 
  *
- *  Change Log:	<Date> <Author>
- *  		<Changes>
+ *  Change Log: <Date> <Author>
+ *      <Changes>
  -------------------------------------------------------------------------*/
  
 #include <stdio.h>
@@ -31,14 +31,15 @@
 #define P 0.01
 
 int flagOpen = 0;
+static int count = 0;
 
 /*-------------------------------------------------------------------------
  *  DgEcho -- Reads a packet from client and sends it back to client
- *    Args:	
- *    Returns:	Nothing
- *    Throws:	
- *    See:	UNIX Network Programming - Richard Stevens: Vol I
- *    Bugs:	
+ *    Args: 
+ *    Returns:  Nothing
+ *    Throws: 
+ *    See:  UNIX Network Programming - Richard Stevens: Vol I
+ *    Bugs: 
  -------------------------------------------------------------------------*/
 char* genbitstr(int c){
   char *str = malloc(9);
@@ -69,10 +70,14 @@ void prob(char *t){
 }
 
 int workwith(int c){
+  printf("%d\n",++count);
   static FILE *fp;
+  static FILE *fp2;
+  
   if(!flagOpen){
     flagOpen = 1;
     fp = fopen("../output/transmitted","a");
+    fp2 = fopen("../output/tempoutrecvd","w");
   }
   
   int flag = 0;
@@ -86,17 +91,22 @@ int workwith(int c){
     flag = 1;
   }
 
-  if(flag == 1)
+  if(flag == 1){
+    count--;
     return 0;
-  
+  }
+
   fprintf(fp, "%c%c%c%c%c",temp[0],temp[1],temp[2],temp[3],temp[4]);
-  // fclose(fp);
+  fprintf(fp2, "%d\n",c);
+
+  if(count%100)
+    fflush(fp2);
+
   return 1;
 }
 
 void DgEcho(int sockFd, struct sockaddr *pcliAddr, socklen_t  maxCliLen)
 {
-    static int count = 0;
     int       n;
     socklen_t cliLen;
     char mesg[MAXMESG];
@@ -105,7 +115,6 @@ void DgEcho(int sockFd, struct sockaddr *pcliAddr, socklen_t  maxCliLen)
     {
       cliLen = maxCliLen;
       n = recvfrom(sockFd, mesg, MAXMESG, 0, pcliAddr, &cliLen);
-      printf("%d\n",++count);
 
   		if (n < 0) {
 		   printf("dg_echo : recvfrom error");
