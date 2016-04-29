@@ -72,12 +72,12 @@ void prob(char *t){
 int workwith(int c){
   printf("%d\n",++count);
   static FILE *fp;
-  static FILE *fp2;
+  // static FILE *fp2;
   
   if(!flagOpen){
     flagOpen = 1;
     fp = fopen("../output/transmitted","a");
-    fp2 = fopen("../output/tempoutrecvd","w");
+    // fp2 = fopen("../output/tempoutrecvd","w");
   }
   
   int flag = 0;
@@ -97,10 +97,12 @@ int workwith(int c){
   }
 
   fprintf(fp, "%c%c%c%c%c",temp[0],temp[1],temp[2],temp[3],temp[4]);
-  fprintf(fp2, "%d\n",c);
+  // fprintf(fp2, "%d\n",c);
 
-  if(count%100)
-    fflush(fp2);
+  if(count%100){
+    // fflush(fp2);
+    fflush(fp);
+  }
 
   return 1;
 }

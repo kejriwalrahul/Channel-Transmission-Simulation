@@ -11,3 +11,7 @@ debug:
 
 convert:
 	python ./code/bintodec.py
+
+split:
+	python ./code/split.py ./output/transmitted
+	python ./code/split.py ./output/tempbef
