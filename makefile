@@ -1,8 +1,11 @@
 all:
 	g++ -g ./code/main.cpp -o ./bin/main.o -std=c++11
 	./bin/main.o ./input/test
+	rm ./output/temp
 
 decode:
+	g++ ./code/convtobin.cpp -o ./bin/conv.o 
+	./bin/conv.o
 	g++ ./code/decode_huffman.cpp -o ./bin/decode.o -std=c++11
 	./bin/decode.o
 

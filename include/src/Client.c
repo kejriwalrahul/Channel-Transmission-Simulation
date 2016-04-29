@@ -107,7 +107,7 @@ int  main (int argc, char **argv)
     }
    
     FILE *fp = fopen("../output/out", "r");
-    FILE *fout = fopen("../output/tempout", "w");
+    // FILE *fout = fopen("../output/tempout", "w");
     int mn;
     while ((mn = fgetc(fp))!= EOF) {
       if(mn != 0){
@@ -120,7 +120,7 @@ int  main (int argc, char **argv)
         tempString[1] = '1';
         tempString[2] = '\0';
       }
-      fprintf(fout,"%d\n", mn);
+      // fprintf(fout,"%d\n", mn);
       DgClient(tempString, sockFd, (struct sockaddr *) &serverAddr, sizeof(serverAddr));
     }
     close(sockFd);
