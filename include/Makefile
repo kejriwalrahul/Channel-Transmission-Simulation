@@ -46,7 +46,7 @@ clean:
 	rm -fr $(BINDIR)/Server $(BINDIR)/Client $(OBJDIR)/Server.o \
 	$(OBJDIR)/DgEcho.o $(OBJDIR)Client.o $(OBJDIR)/DgClient.o 
 
-run:
+server:
 	rm -rf ../output/transmitted
 	./bin/Server 127.0.0.2 1080
 

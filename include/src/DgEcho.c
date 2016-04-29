@@ -26,9 +26,11 @@
 #include "crc.c"
 
 
-#define  MAXMESG 2048
+#define  MAXMESG 8
 
 #define P 0.01
+
+int flagOpen = 0;
 
 /*-------------------------------------------------------------------------
  *  DgEcho -- Reads a packet from client and sends it back to client
@@ -67,7 +69,12 @@ void prob(char *t){
 }
 
 int workwith(int c){
-  FILE *fp = fopen("../output/transmitted","a");
+  static FILE *fp;
+  if(!flagOpen){
+    flagOpen = 1;
+    fp = fopen("../output/transmitted","a");
+  }
+  
   int flag = 0;
 
   char *temp = genbitstr(c);
@@ -83,7 +90,7 @@ int workwith(int c){
     return 0;
   
   fprintf(fp, "%c%c%c%c%c",temp[0],temp[1],temp[2],temp[3],temp[4]);
-  fclose(fp);
+  // fclose(fp);
   return 1;
 }
 
