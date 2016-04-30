@@ -28,10 +28,11 @@
 
 #define  MAXMESG 8
 
-#define P 0.01
+#define P 0.008
 
 int flagOpen = 0;
 static int count = 0;
+static int error_count = 0;
 
 /*-------------------------------------------------------------------------
  *  DgEcho -- Reads a packet from client and sends it back to client
@@ -86,8 +87,10 @@ int workwith(int c){
   prob(temp);
   char *temp2 = computeCRC(temp, "1011");
   if(strcmp(temp2,"000")){
-    printf("%s\n", temp2);
-    printf("%s\n", "Error");
+    // printf("%s\n", temp2);
+    // printf("%s\n", "Error");
+    printf("Error number : %d\n",error_count);
+    error_count++;
     flag = 1;
   }
 
