@@ -106,7 +106,7 @@ int  main (int argc, char **argv)
     exit(-1);
     }
    
-    FILE *fp = fopen("../output/out", "r");
+    FILE *fp = fopen("../output/chanelcoded", "r");
     // FILE *fout = fopen("../output/tempout", "w");
     int mn;
     while ((mn = fgetc(fp))!= EOF) {

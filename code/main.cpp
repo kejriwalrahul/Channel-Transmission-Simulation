@@ -164,10 +164,9 @@ void convert_to_huffman(char* inp){
 	}
 	out = temp;
 
-	ofstream file_out("./output/out", ios::out|ios::trunc|ios::binary);
+	ofstream file_out("./output/chanelcoded", ios::out|ios::trunc|ios::binary);
 	// write encoded stream to file
 	for(i = 0; i < out.size(); i = i + 8){
-		
 		k = 0;
 		for(j = 0; j < 8;j++){
  			k = k + out[i+j]*pow(2,7 - j);

@@ -11,8 +11,8 @@ int main(int argc, char *argv[])
 {
 	unordered_map<string,int> decode;
 	FILE *fp = fopen("./output/mrcodebook","r");
-	FILE *fout = fopen("./output/final_output","w");
-	FILE *fi = fopen("./output/transmitted","r");
+	FILE *fout = fopen(argv[2],"w");
+	FILE *fi = fopen(argv[1],"r");
 	
 	cout<<"here";
 	int i,c,n;

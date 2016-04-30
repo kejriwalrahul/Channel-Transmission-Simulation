@@ -16,8 +16,8 @@ char* conv(int c){
 }
 
 int main(){
-	fstream fin("./output/tempoutr",ios::in);
-	fstream fout("./output/transmitted",ios::out);
+	fstream fin("./output/recvd",ios::in);
+	fstream fout("./output/recvdWoutCRC",ios::out);
 
 	int temp;
 	while(fin){
