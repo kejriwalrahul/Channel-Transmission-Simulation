@@ -1,4 +1,4 @@
-# Channel Transmission Simulation
+# Channel-Transmission-Simulation
 
 This project simulates channel transmission by first Huffman coding the I/P file, channel coding the source coded file and transmitting over UDP protocol. At the receiver, it checks CRC and requests retransmission if received incorrectly. We test this using different bit error probabilities. After complete reception, it decodes the message to get back the original I/P file.   
 
